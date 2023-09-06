@@ -39,6 +39,12 @@ export const Movies = () => {
     evt.target.reset();
   };
   useEffect(() => {
+    if (!serchParams) return;
+    // setLoading(true);
+    setQuerys(serchParams.get('query'));
+    console.log(serchParams.get('query'));
+  }, [serchParams]);
+  useEffect(() => {
     if (!querys) return;
     // setLoading(true);
     getResponse(options)
@@ -61,7 +67,7 @@ export const Movies = () => {
           <input
             type="text"
             name="query"
-            value={serchParams.get('query')}
+            // value={serchParams.get('query')}
             placeholder="Search films "
           />
           <button type="submit">
