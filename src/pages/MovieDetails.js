@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { getResponse } from 'components/Api';
 import { useEffect, useState } from 'react';
