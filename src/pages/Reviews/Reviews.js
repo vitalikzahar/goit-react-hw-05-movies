@@ -20,12 +20,11 @@ export const Reviews = () => {
     getResponse(options)
       .then(response => {
         setReviews(response.data.results);
-        console.log(response.data);
-        // setGenres(response.data.genres);
       })
       .catch(function (error) {
         console.error(error);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

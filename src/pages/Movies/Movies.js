@@ -51,6 +51,7 @@ export const Movies = () => {
         console.log(responce);
       })
       .catch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [querys]);
   return (
     <>
