@@ -1,18 +1,19 @@
-import { Home } from 'pages/Home';
-import { MovieDetails } from 'pages/MovieDetails';
-import { Movies } from 'pages/Movies';
+import { Home } from 'pages/Home/Home';
+import { MovieDetails } from 'pages/MovieDetails/MovieDetails';
+import { Movies } from 'pages/Movies/Movies';
 import { Link, Route, Routes } from 'react-router-dom';
 import { Cast } from 'pages/Cast/Cast';
 import { Reviews } from '../pages/Reviews/Reviews';
+import { Nav } from './App.styled';
 
 export const App = () => {
   return (
     <div>
       <header>
-        <nav>
+        <Nav>
           <Link to="/">Home</Link>
           <Link to="/movies">Movies</Link>
-        </nav>
+        </Nav>
       </header>
       <Routes>
         <Route path="/" element={<Home />} />

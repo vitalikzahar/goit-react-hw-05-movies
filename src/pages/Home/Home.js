@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getResponse } from '../components/Api';
+import { getResponse } from '../../components/Api';
 import { Link, useLocation } from 'react-router-dom';
 const options = {
   method: 'GET',
@@ -15,8 +15,6 @@ export const Home = () => {
   const [answers, setAnswers] = useState([]);
   const location = useLocation();
   useEffect(() => {
-    // if (!query) return;
-    // setLoading(true);
     getResponse(options)
       .then(response => {
         setAnswers(response.data.results);
@@ -24,18 +22,19 @@ export const Home = () => {
       .catch(function (error) {
         console.error(error);
       });
-    //  .finally(() => setLoading(false));
   }, []);
   return (
     <div>
       <ul>
-        {answers.map(answer => (
-          <li key={answer.id}>
-            <Link to={`/movies/${answer.id} `} state={{ from: location }}>
-              {answer.title ?? answer.name}
-            </Link>
-          </li>
-        ))}
+        {answers
+          .filter(answ => answ.title)
+          .map(answer => (
+            <li key={answer.id}>
+              <Link to={`/movies/${answer.id} `} state={{ from: location }}>
+                {answer.title}
+              </Link>
+            </li>
+          ))}
       </ul>
     </div>
   );

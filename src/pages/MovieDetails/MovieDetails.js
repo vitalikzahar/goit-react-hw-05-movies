@@ -1,13 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  // useLocation,
+  useParams,
+} from 'react-router-dom';
 import { getResponse } from 'components/Api';
 import { useEffect, useState } from 'react';
+import { FilmCard } from './MovieDetails.styled';
 
 export const MovieDetails = () => {
   const [card, setCard] = useState([]);
   const [genres, setGenres] = useState([]);
   const { movieId } = useParams();
-  const location = useLocation();
+  // const location = useLocation();
   const options = {
     method: 'GET',
     url: `https://api.themoviedb.org/3/movie/${movieId}`,
@@ -31,26 +36,32 @@ export const MovieDetails = () => {
 
   return (
     <div>
-      <Link to={location.state.from}>Go back</Link>
-      <div>
+      <Link
+      // to={location.state.from}
+      >
+        Go back
+      </Link>
+      <FilmCard>
         <img
           src={`https://image.tmdb.org/t/p/original/${card.poster_path}`}
-          height={200}
+          height={350}
           alt=""
         />
-        <h1>
-          {card.title} ({card.release_date})
-        </h1>
-        <p>User Score: {Math.round(card.vote_average * 10)}%</p>
-        <h2>Overview</h2>
-        <p>{card.overview}</p>
-        <h3>Genres</h3>
-        <ul>
-          {genres.map(gen => (
-            <li key={gen.id}>{gen.name}</li>
-          ))}
-        </ul>
-      </div>
+        <div>
+          <h2>
+            {card.title} ({card.release_date})
+          </h2>
+          <p>User Score: {Math.round(card.vote_average * 10)}%</p>
+          <h3>Overview</h3>
+          <p>{card.overview}</p>
+          <h4>Genres</h4>
+          <ul>
+            {genres.map(gen => (
+              <li key={gen.id}>{gen.name}</li>
+            ))}
+          </ul>
+        </div>
+      </FilmCard>
       <div>
         {' '}
         <h2>Additional information</h2>

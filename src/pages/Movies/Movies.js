@@ -1,15 +1,11 @@
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-
-// import { MovieDetails } from './MovieDetails';
 import { GrSearch } from 'react-icons/gr';
-// import { Loader } from './Loader/Loader';
 import { useEffect, useState } from 'react';
 import { getResponse } from 'components/Api';
 
 export const Movies = () => {
   const [querys, setQuerys] = useState('');
   const [films, setFilms] = useState([]);
-  // const [loading, setLoading] = useState(false);
   const location = useLocation();
   const [serchParams, setSerchParams] = useSearchParams();
   const options = {
@@ -40,22 +36,21 @@ export const Movies = () => {
   };
   useEffect(() => {
     if (!serchParams) return;
-    // setLoading(true);
+
     setQuerys(serchParams.get('query'));
     console.log(serchParams.get('query'));
   }, [serchParams]);
   useEffect(() => {
     if (!querys) return;
-    // setLoading(true);
+
     getResponse(options)
       .then(responce => {
         setFilms(responce.data.results);
         setSerchParams({ query: `${querys}` });
+
         console.log(responce);
       })
       .catch();
-    // .finally(() => setLoading(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [querys]);
   return (
     <>
@@ -65,12 +60,7 @@ export const Movies = () => {
             onSubmit(evt);
           }}
         >
-          <input
-            type="text"
-            name="query"
-            // value={serchParams.get('query')}
-            placeholder="Search films "
-          />
+          <input type="text" name="query" placeholder="Search films " />
           <button type="submit">
             <span>
               <GrSearch />
@@ -78,13 +68,15 @@ export const Movies = () => {
           </button>
         </form>
         <ul>
-          {films.map(film => (
-            <li key={film.id}>
-              <Link to={`/movies/${film.id}`} state={{ from: location }}>
-                {film.title ?? film.name}
-              </Link>
-            </li>
-          ))}
+          {films
+            .filter(film => film.title)
+            .map(film => (
+              <li key={film.id}>
+                <Link to={`/movies/${film.id}`} state={{ from: location }}>
+                  {film.title}
+                </Link>
+              </li>
+            ))}
         </ul>
       </div>
     </>

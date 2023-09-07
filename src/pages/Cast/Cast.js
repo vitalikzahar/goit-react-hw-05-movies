@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 export const Cast = () => {
   const [casts, setCasts] = useState([]);
   const { movieId } = useParams();
-
   const options = {
     method: 'GET',
     url: `https://api.themoviedb.org/3/movie/${movieId}/credits`,
@@ -26,7 +25,6 @@ export const Cast = () => {
       .catch(function (error) {
         console.error(error);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
