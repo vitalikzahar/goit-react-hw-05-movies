@@ -2,7 +2,7 @@ import { getResponse } from 'components/Api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export const Cast = () => {
+const Cast = () => {
   const [casts, setCasts] = useState([]);
   const { movieId } = useParams();
   const options = {
@@ -45,3 +45,4 @@ export const Cast = () => {
     </>
   );
 };
+export default Cast;

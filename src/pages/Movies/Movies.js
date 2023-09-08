@@ -3,7 +3,7 @@ import { GrSearch } from 'react-icons/gr';
 import { useEffect, useState } from 'react';
 import { getResponse } from 'components/Api';
 
-export const Movies = () => {
+const Movies = () => {
   const [querys, setQuerys] = useState('');
   const [films, setFilms] = useState([]);
   const location = useLocation();
@@ -38,7 +38,6 @@ export const Movies = () => {
     if (!serchParams) return;
 
     setQuerys(serchParams.get('query'));
-    console.log(serchParams.get('query'));
   }, [serchParams]);
   useEffect(() => {
     if (!querys) return;
@@ -83,3 +82,4 @@ export const Movies = () => {
     </>
   );
 };
+export default Movies;

@@ -1,18 +1,20 @@
-import {
-  Link,
-  Outlet,
-  // useLocation,
-  useParams,
-} from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { getResponse } from 'components/Api';
-import { useEffect, useState } from 'react';
-import { FilmCard } from './MovieDetails.styled';
+import { useEffect, useRef, useState } from 'react';
+import {
+  FilmCard,
+  NavButton,
+  StyledLink,
+  StyledNav,
+  Title,
+} from './MovieDetails.styled';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [card, setCard] = useState([]);
   const [genres, setGenres] = useState([]);
   const { movieId } = useParams();
-  // const location = useLocation();
+  const location = useLocation();
+  const goBack = useRef(location.state?.from ?? '/');
   const options = {
     method: 'GET',
     url: `https://api.themoviedb.org/3/movie/${movieId}`,
@@ -37,11 +39,7 @@ export const MovieDetails = () => {
 
   return (
     <div>
-      <Link
-      // to={location.state.from}
-      >
-        Go back
-      </Link>
+      <NavButton to={goBack.current}>Go back</NavButton>
       <FilmCard>
         <img
           src={`https://image.tmdb.org/t/p/original/${card.poster_path}`}
@@ -49,9 +47,9 @@ export const MovieDetails = () => {
           alt=""
         />
         <div>
-          <h2>
+          <Title>
             {card.title} ({card.release_date})
-          </h2>
+          </Title>
           <p>User Score: {Math.round(card.vote_average * 10)}%</p>
           <h3>Overview</h3>
           <p>{card.overview}</p>
@@ -66,12 +64,13 @@ export const MovieDetails = () => {
       <div>
         {' '}
         <h2>Additional information</h2>
-        <nav>
-          <Link to="cast">Cast</Link>
-          <Link to="reviews">Reviews</Link>
-        </nav>{' '}
+        <StyledNav>
+          <StyledLink to="cast">Cast</StyledLink>
+          <StyledLink to="reviews">Reviews</StyledLink>
+        </StyledNav>{' '}
         <Outlet />
       </div>
     </div>
   );
 };
+export default MovieDetails;
