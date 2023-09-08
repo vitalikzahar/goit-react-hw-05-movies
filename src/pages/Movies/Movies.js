@@ -29,11 +29,9 @@ const Movies = () => {
       .then(responce => {
         setFilms(responce.data.results);
         setSerchParams({ query: `${querys}` });
-
-        console.log(responce);
       })
       .catch();
-  }, [querys]);
+  }, [querys, params, setSerchParams]);
   return (
     <>
       <div>

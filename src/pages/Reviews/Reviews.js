@@ -15,7 +15,7 @@ const Reviews = () => {
       .catch(function (error) {
         console.error(error);
       });
-  }, []);
+  }, [params]);
 
   return (
     <ul>
