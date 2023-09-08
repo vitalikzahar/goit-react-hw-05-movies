@@ -15,7 +15,7 @@ const Cast = () => {
       .catch(function (error) {
         console.error(error);
       });
-  }, []);
+  }, [params]);
 
   return (
     <>
