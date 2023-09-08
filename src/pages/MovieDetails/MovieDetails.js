@@ -10,23 +10,15 @@ import {
 } from './MovieDetails.styled';
 
 const MovieDetails = () => {
-  const [card, setCard] = useState([]);
+  const [card, setCard] = useState(null);
   const [genres, setGenres] = useState([]);
   const { movieId } = useParams();
   const location = useLocation();
   const goBack = useRef(location.state?.from ?? '/');
-  const options = {
-    method: 'GET',
-    url: `https://api.themoviedb.org/3/movie/${movieId}`,
-    params: { language: 'en-US' },
-    headers: {
-      accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN2JhMDA3OWZmYzBmOTE1Y2E0NGZhZjA5NDY5OWE0MiIsInN1YiI6IjY0ZjRjYjc1OWU0NTg2MDExZGU2YjI5NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7tXOVTtl4laXPE3MmR9v9s2frF2ianV7tipkyHirJNw',
-    },
-  };
+
+  const params = `movie/${movieId}`;
   useEffect(() => {
-    getResponse(options)
+    getResponse(params)
       .then(response => {
         setCard(response.data);
         setGenres(response.data.genres);
@@ -34,9 +26,10 @@ const MovieDetails = () => {
       .catch(function (error) {
         console.error(error);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  if (!card) {
+    return;
+  }
   return (
     <div>
       <NavButton to={goBack.current}>Go back</NavButton>

@@ -5,25 +5,16 @@ import { useParams } from 'react-router-dom';
 const Cast = () => {
   const [casts, setCasts] = useState([]);
   const { movieId } = useParams();
-  const options = {
-    method: 'GET',
-    url: `https://api.themoviedb.org/3/movie/${movieId}/credits`,
-    params: { language: 'en-US' },
-    headers: {
-      accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN2JhMDA3OWZmYzBmOTE1Y2E0NGZhZjA5NDY5OWE0MiIsInN1YiI6IjY0ZjRjYjc1OWU0NTg2MDExZGU2YjI5NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7tXOVTtl4laXPE3MmR9v9s2frF2ianV7tipkyHirJNw',
-    },
-  };
+
+  const params = `movie/${movieId}/credits`;
   useEffect(() => {
-    getResponse(options)
+    getResponse(params)
       .then(response => {
         setCasts(response.data.cast);
       })
       .catch(function (error) {
         console.error(error);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

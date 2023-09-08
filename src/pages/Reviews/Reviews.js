@@ -6,38 +6,26 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const { movieId } = useParams();
 
-  const options = {
-    method: 'GET',
-    url: `https://api.themoviedb.org/3/movie/${movieId}/reviews`,
-    params: { language: 'en-US' },
-    headers: {
-      accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxN2JhMDA3OWZmYzBmOTE1Y2E0NGZhZjA5NDY5OWE0MiIsInN1YiI6IjY0ZjRjYjc1OWU0NTg2MDExZGU2YjI5NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7tXOVTtl4laXPE3MmR9v9s2frF2ianV7tipkyHirJNw',
-    },
-  };
+  const params = `movie/${movieId}/reviews`;
   useEffect(() => {
-    getResponse(options)
+    getResponse(params)
       .then(response => {
         setReviews(response.data.results);
       })
       .catch(function (error) {
         console.error(error);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <>
-      <ul>
-        {reviews.map(review => (
-          <li key={review.id}>
-            <h3>Author: {review.author}</h3>
-            <p>{review.content}</p>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul>
+      {reviews.map(review => (
+        <li key={review.id}>
+          <h3>Author: {review.author}</h3>
+          <p>{review.content}</p>
+        </li>
+      )) && <p>We don't have any reviews for this movie</p>}
+    </ul>
   );
 };
 export default Reviews;
