@@ -1,21 +1,21 @@
 import { getResponse } from 'components/Api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+const defoultImg =
+  'https://images.pexels.com/photos/1252983/pexels-photo-1252983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 const Cast = () => {
   const [casts, setCasts] = useState([]);
   const { movieId } = useParams();
 
-  const params = `movie/${movieId}/credits`;
   useEffect(() => {
-    getResponse(params)
+    getResponse(`movie/${movieId}/credits`)
       .then(response => {
         setCasts(response.data.cast);
       })
       .catch(function (error) {
         console.error(error);
       });
-  }, [params]);
+  }, [movieId]);
 
   return (
     <>
@@ -24,7 +24,11 @@ const Cast = () => {
           <li key={cast.id}>
             {' '}
             <img
-              src={`https://image.tmdb.org/t/p/original/${cast.profile_path}`}
+              src={
+                cast.profile_path
+                  ? `https://image.tmdb.org/t/p/original/${cast.profile_path}`
+                  : defoultImg
+              }
               height={200}
               alt=""
             />

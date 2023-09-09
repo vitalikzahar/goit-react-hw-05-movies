@@ -6,25 +6,28 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const { movieId } = useParams();
 
-  const params = `movie/${movieId}/reviews`;
   useEffect(() => {
-    getResponse(params)
+    getResponse(`movie/${movieId}/reviews`)
       .then(response => {
         setReviews(response.data.results);
       })
       .catch(function (error) {
         console.error(error);
       });
-  }, [params]);
+  }, [movieId]);
 
   return (
     <ul>
-      {reviews.map(review => (
-        <li key={review.id}>
-          <h3>Author: {review.author}</h3>
-          <p>{review.content}</p>
-        </li>
-      )) && <p>We don't have any reviews for this movie</p>}
+      {reviews.length > 0 ? (
+        reviews.map(review => (
+          <li key={review.id}>
+            <h3>Ahor: {review.author}</h3>
+            <p>{review.content}</p>
+          </li>
+        ))
+      ) : (
+        <li>We don't have any reviews for this movie</li>
+      )}
     </ul>
   );
 };

@@ -15,10 +15,9 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
   const goBack = useRef(location.state?.from ?? '/');
-  console.log(goBack);
-  const params = `movie/${movieId}`;
+
   useEffect(() => {
-    getResponse(params)
+    getResponse(`movie/${movieId}`)
       .then(response => {
         setCard(response.data);
         setGenres(response.data.genres);
@@ -26,7 +25,7 @@ const MovieDetails = () => {
       .catch(function (error) {
         console.error(error);
       });
-  }, [params]);
+  }, [movieId]);
   if (!card) {
     return;
   }
