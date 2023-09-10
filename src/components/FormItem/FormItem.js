@@ -8,11 +8,7 @@ export const FormItem = ({ changeQuery }) => {
     evt.target.reset();
   };
   return (
-    <form
-      onSubmit={evt => {
-        onSubmit(evt);
-      }}
-    >
+    <form onSubmit={onSubmit}>
       <input type="text" name="query" placeholder="Search films " />
       <button type="submit">
         <span>
