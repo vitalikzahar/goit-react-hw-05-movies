@@ -8,7 +8,8 @@ import {
   StyledNav,
   Title,
 } from './MovieDetails.styled';
-
+const defoultImg =
+  'https://images.pexels.com/photos/1252983/pexels-photo-1252983.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 const MovieDetails = () => {
   const [card, setCard] = useState(null);
   const [genres, setGenres] = useState([]);
@@ -34,7 +35,11 @@ const MovieDetails = () => {
       <NavButton to={goBack.current}>Go back</NavButton>
       <FilmCard>
         <img
-          src={`https://image.tmdb.org/t/p/original/${card.poster_path}`}
+          src={
+            card.poster_path
+              ? `https://image.tmdb.org/t/p/original/${card.poster_path}`
+              : defoultImg`https://image.tmdb.org/t/p/original/${card.poster_path}`
+          }
           height={350}
           alt=""
         />

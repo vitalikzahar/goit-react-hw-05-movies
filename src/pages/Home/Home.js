@@ -6,7 +6,7 @@ const Home = () => {
   const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
-    getResponse(`trending/all/day`)
+    getResponse(`trending/movie/day`)
       .then(response => {
         setAnswers(response.data.results);
       })
